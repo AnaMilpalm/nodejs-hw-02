@@ -6,7 +6,7 @@ import {
 } from '../services/contacts';
 
 import createHttpError from 'http-errors';
-import { updateContact } from '../services/contacts';
+import { updateContact } from '../services/contacts.js';
 
 export const getContactByIdController = async (req, res, next) => {
   const { contactId } = req.params;
@@ -67,8 +67,7 @@ export const upsertContactController = async (req, res, next) => {
   });
 
   if (!result) {
-    next(createHttpError(404, 'Contact not found'));
-    return;
+    throw createHttpError(404, 'Contact not found');
   }
 
   const status = result.isNew ? 201 : 200;
