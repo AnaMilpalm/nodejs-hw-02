@@ -3,10 +3,10 @@ import {
   deleteContact,
   getAllContacts,
   getContactById,
-} from '../services/contacts';
+  updateContact,
+} from '../services/contacts.js';
 
 import createHttpError from 'http-errors';
-import { updateContact } from '../services/contacts.js';
 
 export const getContactByIdController = async (req, res, next) => {
   const { contactId } = req.params;
