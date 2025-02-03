@@ -1,7 +1,7 @@
 import express from 'express';
+import contactsRouter from './routers/contacts.js';
 import pino from 'pino-http';
 import cors from 'cors';
-import contactsRouter from './routers/contacts.js';
 
 import { getEnvVar } from './utils/getEnvVar.js';
 
