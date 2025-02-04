@@ -10,10 +10,7 @@ const contactsSchema = new Schema({
     type: String,
     required: false,
   },
-  age: {
-    type: String,
-    required: true,
-  },
+
   gender: {
     type: String,
     required: false,
@@ -21,10 +18,6 @@ const contactsSchema = new Schema({
   avgMark: {
     type: String,
     default: false,
-  },
-  onDuty: {
-    type: Boolean,
-    required: true,
   },
 });
 
