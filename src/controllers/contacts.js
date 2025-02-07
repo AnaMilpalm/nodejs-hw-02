@@ -7,6 +7,7 @@ import {
 } from '../services/contacts.js';
 
 import createHttpError from 'http-errors';
+import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 
 export const getContactByIdController = async (req, res, next) => {
   const { contactId } = req.params;
@@ -23,8 +24,12 @@ export const getContactByIdController = async (req, res, next) => {
   });
 };
 
-export const getContactsController = async (req, res, next) => {
-  const contacts = await getAllContacts();
+export const getContactsController = async (req, res) => {
+  const { page, perPage } = parsePaginationParams(req.query);
+  const contacts = await getAllContacts({
+    page,
+    perPage,
+  });
 
   res.json({
     status: 200,
