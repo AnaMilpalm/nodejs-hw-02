@@ -12,10 +12,22 @@ export const createContactSchema = Joi.object({
   isFavourite: Joi.boolean(),
   contactType: Joi.string().valid('work', 'home', 'personal').required(),
 });
-
+const userData = {
+  name: 'John Doe',
+  phoneNumber: 123456789,
+  email: 'john@example.com',
+  isFavourite: true,
+  contactType: 'work',
+};
 const validationResult = createContactSchema.validate(userData, {
   abortEarly: false,
 });
+
+if (validationResult.error) {
+  console.log('Validation errors:', validationResult.error.details);
+} else {
+  console.log('Validation successful:', validationResult.value);
+}
 
 export const updateContactShema = Joi.object({
   name: Joi.string().min(3).max(20),
