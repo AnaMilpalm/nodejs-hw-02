@@ -19,7 +19,6 @@ const router = Router();
 router.get('/', ctrlWrapper(getContactsController));
 router.get('/:contactId', isValidId, ctrlWrapper(getContactByIdController));
 router.delete('/:contactId', isValidId, ctrlWrapper(deleteContactController));
-router.put('/:contactId', isValidId, ctrlWrapper(upsertContactController));
 
 router.post(
   '/',
@@ -29,12 +28,14 @@ router.post(
 
 router.put(
   '/contacts/:contactId',
+  isValidId,
   validateBody(createContactSchema),
   ctrlWrapper(upsertContactController),
 );
 
 router.patch(
   '/contacts/:contactId',
+  isValidId,
   validateBody(updateContactShema),
   ctrlWrapper(patchContactConttroller),
 );
