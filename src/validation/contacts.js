@@ -7,12 +7,14 @@ export const createContactSchema = Joi.object({
     'string.max': 'Username should have at most {#limit} characters',
     'any.required': 'Username is required',
   }),
-  phoneNumber: Joi.number().integer().min(6).max(16).required().messages({
-    'number.base': 'Phone number should be a string',
-    'number.min': 'Phone number should have at least {#limit} figures',
-    'number.max': 'Phone number should have at most {#limit} figures',
-    'any.required': 'Phone number is required',
-  }),
+  phoneNumber: Joi.string()
+    .pattern(/^\+\d{12}$/) // Формат +380000000000
+    .required()
+    .messages({
+      'any.required': 'Phone number is required',
+      'string.empty': 'Phone number cannot be empty',
+      'string.pattern.base': 'Phone number must be in the format +380000000000',
+    }),
   email: Joi.string().min(3).max(20).required().messages({
     'string.base': 'Email should be a string',
     'string.min': 'Email should have at least {#limit} characters',
@@ -41,7 +43,13 @@ if (validationResult.error) {
 
 export const updateContactShema = Joi.object({
   name: Joi.string().min(3).max(20),
-  phoneNumber: Joi.number().integer().min(6).max(16),
+  phoneNumber: Joi.string()
+    .pattern(/^\+\d{12}$/) // Формат +380000000000
+    .messages({
+      'any.required': 'Phone number is required',
+      'string.empty': 'Phone number cannot be empty',
+      'string.pattern.base': 'Phone number must be in the format +380000000000',
+    }),
   email: Joi.string().min(3).max(20),
   isFavourite: Joi.boolean(),
   contactType: Joi.string().valid('work', 'home', 'personal'),
