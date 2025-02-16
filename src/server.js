@@ -1,7 +1,10 @@
 import express from 'express';
-import contactsRouter from './routers/contacts.js';
+import cookieParser from 'cookie-parser';
+
+// import contactsRouter from './routers/contacts.js';
 import pino from 'pino-http';
 import cors from 'cors';
+import router from './routers/index.js';
 
 import { getEnvVar } from './utils/getEnvVar.js';
 
@@ -10,11 +13,18 @@ import { notFoundHandler } from './middlewares/notFoundHandler.js';
 
 const PORT = Number(getEnvVar('PORT', '3001'));
 
-export const startServer = () => {};
+export const startServer = () => {
+  const app = express();
+
+  app.use(express.json());
+  app.use(cors());
+  app.use(cookieParser());
+};
 const app = express();
 
 app.use(express.json());
-app.use('/contacts', contactsRouter);
+// app.use('/contacts', contactsRouter);
+app.use(router);
 
 app.use(cors());
 
