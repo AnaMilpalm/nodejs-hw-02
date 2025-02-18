@@ -19,8 +19,9 @@ import { checkRoles } from '../middlewares/checkRoles.js';
 import { ROLES } from '../constants/index.js';
 
 const router = Router();
+router.use(authenticate);
 
-router.get('/', checkRoles(ROLES.HOME), ctrlWrapper(getContactsController));
+router.get('/', ctrlWrapper(getContactsController));
 
 router.get(
   '/:contactId',
@@ -30,21 +31,21 @@ router.get(
 );
 router.delete(
   '/:contactId',
-  checkRoles(ROLES.HOME),
+
   isValidId,
   ctrlWrapper(deleteContactController),
 );
 
 router.post(
   '/',
-  checkRoles(ROLES.HOME),
+
   validateBody(createContactSchema),
   ctrlWrapper(createContactController),
 );
 
 router.put(
   '/:contactId',
-  checkRoles(ROLES.HOME),
+
   isValidId,
   validateBody(createContactSchema),
   ctrlWrapper(upsertContactController),
@@ -52,13 +53,11 @@ router.put(
 
 router.patch(
   '/:contactId',
-  checkRoles(ROLES.HOME, ROLES.PERSONAL),
+
   isValidId,
   validateBody(updateContactShema),
   ctrlWrapper(patchContactConttroller),
 );
-
-router.use(authenticate);
 
 router.get('/', ctrlWrapper(getContactsController));
 
