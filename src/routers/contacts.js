@@ -15,26 +15,14 @@ import {
   createContactSchema,
   updateContactShema,
 } from '../validation/contacts.js';
-import { checkRoles } from '../middlewares/checkRoles.js';
-import { ROLES } from '../constants/index.js';
 
 const router = Router();
 router.use(authenticate);
 
 router.get('/', ctrlWrapper(getContactsController));
 
-router.get(
-  '/:contactId',
-  checkRoles(ROLES.HOME, ROLES.PERSONAL),
-  isValidId,
-  ctrlWrapper(getContactByIdController),
-);
-router.delete(
-  '/:contactId',
-
-  isValidId,
-  ctrlWrapper(deleteContactController),
-);
+router.get('/:contactId', isValidId, ctrlWrapper(getContactByIdController));
+router.delete('/:contactId', isValidId, ctrlWrapper(deleteContactController));
 
 router.post(
   '/',
@@ -58,7 +46,5 @@ router.patch(
   validateBody(updateContactShema),
   ctrlWrapper(patchContactConttroller),
 );
-
-router.get('/', ctrlWrapper(getContactsController));
 
 export default router;

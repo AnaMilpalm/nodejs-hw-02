@@ -1,7 +1,5 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
-
-// import contactsRouter from './routers/contacts.js';
 import pino from 'pino-http';
 import cors from 'cors';
 import router from './routers/index.js';
