@@ -102,8 +102,8 @@ export const patchContactConttroller = async (req, res, next) => {
     throw createHttpError(400, 'User is not authenticated');
   }
   const { contactId } = req.params;
-  const contactIdAndUserId = { userId, _id: contactId };
-  const result = await updateContact(contactIdAndUserId, req.body);
+
+  const result = await updateContact(contactId, userId, req.body);
 
   if (!result) {
     throw createHttpError(404, 'Contact not found');
@@ -112,6 +112,6 @@ export const patchContactConttroller = async (req, res, next) => {
   res.json({
     status: 200,
     message: `Successfully patched a contact!`,
-    data: contactIdAndUserId,
+    data: result,
   });
 };
