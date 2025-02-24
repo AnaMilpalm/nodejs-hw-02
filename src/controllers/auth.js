@@ -23,6 +23,8 @@ export const loginUserController = async (req, res) => {
   });
   res.cookie('sessionId', session._id, {
     httpOnly: true,
+    secure: true,
+    sameSite: 'None',
     expires: new Date(Date.now() + ONE_DAY),
   });
 
@@ -58,6 +60,12 @@ const setupSession = (res, session) => {
 };
 
 export const refreshUserSessionController = async (req, res) => {
+  console.log('Cookies received:', req.cookies);
+
+  if (!req.cookies || !req.cookies.sessionId) {
+    return res.status(400).json({ message: 'Session ID is missing' });
+  }
+
   const session = await refreshUsersSession({
     sessionId: req.cookies.sessionId,
     refreshToken: req.cookies.refreshToken,
