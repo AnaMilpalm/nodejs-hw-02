@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { upload } from '../middlewares/multer.js';
 import { authenticate } from '../middlewares/authenticate.js';
 import {
   getContactsController,
@@ -26,7 +27,7 @@ router.delete('/:contactId', isValidId, ctrlWrapper(deleteContactController));
 
 router.post(
   '/',
-
+  upload.single('photo'),
   validateBody(createContactSchema),
   ctrlWrapper(createContactController),
 );
@@ -35,6 +36,7 @@ router.put(
   '/:contactId',
 
   isValidId,
+  upload.single('photo'),
   validateBody(createContactSchema),
   ctrlWrapper(upsertContactController),
 );
@@ -43,6 +45,7 @@ router.patch(
   '/:contactId',
 
   isValidId,
+  upload.single('photo'),
   validateBody(updateContactShema),
   ctrlWrapper(patchContactConttroller),
 );

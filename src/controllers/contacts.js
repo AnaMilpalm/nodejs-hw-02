@@ -9,6 +9,9 @@ import {
 import createHttpError from 'http-errors';
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 import { parseSortParams } from '../utils/parseSortParams.js';
+import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
+import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
+import { getEnvVar } from '../utils/getEnvVar.js';
 
 export const getContactByIdController = async (req, res, next) => {
   const { contactId } = req.params;
@@ -102,16 +105,40 @@ export const patchContactConttroller = async (req, res, next) => {
     throw createHttpError(400, 'User is not authenticated');
   }
   const { contactId } = req.params;
+  const photo = req.file;
+  let photoUrl;
 
-  const result = await updateContact(contactId, userId, req.body);
+  if (photo) {
+    if (getEnvVar('ENABLE_CLOUDINARY') === 'true') {
+      photoUrl = await saveFileToCloudinary(photo);
+    } else {
+      photoUrl = await saveFileToUploadDir(photo);
+    }
+  }
+
+  {
+    // fieldname: 'photo',
+    //   originalname: 'download.jpeg',
+    //   encoding: '7bit',
+    //   mimetype: 'image/jpeg',
+    //   destination: 'Users/anamilpalm/Projects/contacts-app/temp';
+    // filename: '1710709919677_download.jpeg',
+    //   path: 'Users/anamilpalm/Projects/contacts-app/temp';
+  }
+
+  const result = await updateContact(contactId, userId, {
+    ...req.body,
+    photo: photoUrl,
+  });
 
   if (!result) {
-    throw createHttpError(404, 'Contact not found');
+    next(createHttpError(404, 'Contact not found'));
+    return;
   }
 
   res.json({
     status: 200,
     message: `Successfully patched a contact!`,
-    data: result,
+    data: result.contact,
   });
 };
