@@ -116,16 +116,6 @@ export const patchContactConttroller = async (req, res, next) => {
     }
   }
 
-  {
-    // fieldname: 'photo',
-    //   originalname: 'download.jpeg',
-    //   encoding: '7bit',
-    //   mimetype: 'image/jpeg',
-    //   destination: 'Users/anamilpalm/Projects/contacts-app/temp';
-    // filename: '1710709919677_download.jpeg',
-    //   path: 'Users/anamilpalm/Projects/contacts-app/temp';
-  }
-
   const result = await updateContact(contactId, userId, {
     ...req.body,
     photo: photoUrl,

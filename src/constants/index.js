@@ -1,6 +1,4 @@
 import path from 'node:path';
-import dotenv from 'dotenv';
-dotenv.config();
 
 export const SORT_ORDER = {
   ASC: 'asc',
@@ -9,12 +7,7 @@ export const SORT_ORDER = {
 
 export const FIFTEEN_MINUTES = 15 * 60 * 1000;
 export const ONE_DAY = 24 * 60 * 1000;
-
-export const ROLES = {
-  WORK: 'work',
-  HOME: 'home',
-  PERSONAL: 'personal',
-};
+export const THIRTY_DAYS = 30 * 24 * 60 * 60 * 1000;
 
 export const SMTP = {
   SMTP_HOST: 'SMTP_HOST',
@@ -29,7 +22,7 @@ export const TEMP_UPLOAD_DIR = path.join(process.cwd(), 'temp');
 export const UPLOAD_DIR = path.join(process.cwd(), 'uploads');
 
 export const CLOUDINARY = {
-  CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME,
-  API_KEY: process.env.CLOUDINARY_API_KEY,
-  API_SECRET: process.env.CLOUDINARY_API_SECRET,
+  CLOUD_NAME: 'CLOUD_NAME',
+  API_KEY: 'API_KEY',
+  API_SECRET: 'API_SECRET',
 };
