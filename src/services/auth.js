@@ -1,11 +1,16 @@
 import { randomBytes } from 'crypto';
 import bcrypt from 'bcrypt';
-import createHttpError from 'http-errors';
-import { FIFTEEN_MINUTES, ONE_DAY, TEMPLATES_DIR } from '../constants/index.js';
 import { UsersCollection } from '../db/models/user.js';
+import createHttpError from 'http-errors';
+import {
+  FIFTEEN_MINUTES,
+  ONE_DAY,
+  TEMPLATES_DIR,
+  SMTP,
+} from '../constants/index.js';
+
 import { SessionsCollection } from '../db/models/session.js';
 import jwt from 'jsonwebtoken';
-import { SMTP } from '../constants/index.js';
 import { getEnvVar } from '../utils/getEnvVar.js';
 import { sendEmail } from '../utils/sendMail.js';
 import handlebars from 'handlebars';
@@ -140,7 +145,8 @@ export const resetPassword = async (payload) => {
   try {
     entries = jwt.verify(payload.token, getEnvVar('JWT_SECRET'));
   } catch (err) {
-    if (err instanceof Error) throw createHttpError(401, err.message);
+    if (err instanceof Error)
+      throw createHttpError(401, 'Token is expired or invalid');
     throw err;
   }
 
