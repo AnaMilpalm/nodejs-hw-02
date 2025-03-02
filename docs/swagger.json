@@ -11,7 +11,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3001"
+      "url": "http://localhost:3001/api-docs"
     },
     {
       "url": "https://example.com/api/v1"
@@ -30,9 +30,7 @@
   "paths": {
     "/contacts": {
       "get": {
-        "tags": [
-          "Contacts"
-        ],
+        "tags": ["Contacts"],
         "summary": "Get list of contacts",
         "operationId": "getContacts",
         "description": "Get list of users with this endpoint",
@@ -72,10 +70,7 @@
             "name": "sortOrder",
             "schema": {
               "type": "string",
-              "enum": [
-                "asc",
-                "desc"
-              ],
+              "enum": ["asc", "desc"],
               "example": "asc"
             }
           },
@@ -116,11 +111,7 @@
             "name": "gender",
             "schema": {
               "type": "string",
-              "enum": [
-                "male",
-                "female",
-                "other"
-              ],
+              "enum": ["male", "female", "other"],
               "example": "male"
             }
           }
@@ -132,11 +123,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["status", "message", "data"],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -201,9 +188,7 @@
         }
       },
       "post": {
-        "tags": [
-          "Contacts"
-        ],
+        "tags": ["Contacts"],
         "summary": "Create contact",
         "operationId": "createContact",
         "description": "Create a contact with payload",
@@ -217,13 +202,7 @@
             "multipart/form-data": {
               "schema": {
                 "type": "object",
-                "required": [
-                  "name",
-                  "age",
-                  "gender",
-                  "avgMark",
-                  "parentId"
-                ],
+                "required": ["name", "age", "gender", "avgMark", "parentId"],
                 "properties": {
                   "name": {
                     "description": "Contact's name",
@@ -238,11 +217,7 @@
                   "gender": {
                     "description": "Contact's age",
                     "type": "string",
-                    "enum": [
-                      "male",
-                      "female",
-                      "other"
-                    ]
+                    "enum": ["male", "female", "other"]
                   },
                   "avgMark": {
                     "description": "Contact's average mark. Should be between 1 and 12",
@@ -276,11 +251,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["status", "message", "data"],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -307,9 +278,7 @@
     },
     "/scontacts/{id}": {
       "get": {
-        "tags": [
-          "Contacts"
-        ],
+        "tags": ["Contacts"],
         "summary": "Get contact by id",
         "operationId": "getContact",
         "description": "Get contact by id",
@@ -336,11 +305,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["status", "message", "data"],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -376,14 +341,7 @@
     "schemas": {
       "contact": {
         "type": "object",
-        "required": [
-          "_id",
-          "name",
-          "age",
-          "gender",
-          "avgMark",
-          "onDuty"
-        ],
+        "required": ["_id", "name", "age", "gender", "avgMark", "onDuty"],
         "properties": {
           "_id": {
             "description": "Contact's id",
@@ -403,11 +361,7 @@
           "gender": {
             "description": "Contact's age",
             "type": "string",
-            "enum": [
-              "male",
-              "female",
-              "other"
-            ]
+            "enum": ["male", "female", "other"]
           },
           "avgMark": {
             "description": "Contact's average mark. Should be between 1 and 12",
@@ -439,11 +393,7 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "required": [
-                "status",
-                "message",
-                "data"
-              ],
+              "required": ["status", "message", "data"],
               "properties": {
                 "status": {
                   "type": "integer",
@@ -455,9 +405,7 @@
                 },
                 "data": {
                   "type": "object",
-                  "required": [
-                    "message"
-                  ],
+                  "required": ["message"],
                   "properties": {
                     "message": {
                       "type": "string",

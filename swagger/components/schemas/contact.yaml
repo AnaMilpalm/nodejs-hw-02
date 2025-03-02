@@ -2,10 +2,9 @@ type: object
 required:
   - _id
   - name
-  - age
-  - gender
-  - avgMark
-  - onDuty
+  - phoneNumber
+  - contactType
+  - userId
 properties:
   _id:
     description: "Contact's id"
@@ -15,24 +14,25 @@ properties:
     description: "Contact's name"
     type: string
     example: 'John Doe'
-  age:
-    description: "Contact's age"
-    type: number
-    example: 12
-  gender:
-    description: "Contact's age"
+  phoneNumber:
+    description: "Contact's phone number"
     type: string
-    enum: ['male', 'female', 'other']
-  avgMark:
-    description: "Contact's average mark. Should be between 1 and 12"
-    type: number
-    example: 9.7
-  onDuty:
-    description: 'Whether is contact on duty'
+    example: '+38(095)000-00-00'
+  email:
+    description: "Contact's email"
+    type: string
+    example: 'hello@mail.com'
+  isFavourite:
+    description: "Contact's of the favourite list."
     type: boolean
-    example: false
-  parentId:
-    description: "Contact's parent id"
+    example: true
+  contactType:
+    description: "Contact's types of number"
+    type: string
+    enum: ['work', 'home', 'personal']
+    example: personal
+  userId:
+    description: "Contact's user id"
     type: string
     example: 65e4decdd286b30065d54af9
   photo:
