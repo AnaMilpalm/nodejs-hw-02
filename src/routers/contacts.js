@@ -43,7 +43,6 @@ router.put(
 
 router.patch(
   '/:contactId',
-
   isValidId,
   upload.single('photo'),
   validateBody(updateContactShema),
