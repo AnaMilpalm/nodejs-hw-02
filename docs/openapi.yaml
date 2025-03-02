@@ -18,10 +18,10 @@ paths:
   /contacts:
     get:
       $ref: ../swagger/paths/contacts/get.yaml
-
+  /contacts:
     post:
       $ref: ../swagger/paths/contacts/post.yaml
-  /scontacts/{id}:
+  /contacts/{id}:
     get:
       $ref: ../swagger/paths/contacts/{id}/get.yaml
 
