@@ -34,7 +34,7 @@ export const createContactSchema = Joi.object({
 });
 const userData = {
   name: 'John Doe',
-  phoneNumber: '+38123456789',
+  phoneNumber: '+381234567890',
   email: 'john@example.com',
   isFavourite: true,
   contactType: 'work',
