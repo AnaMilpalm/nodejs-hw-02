@@ -11,10 +11,10 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3001/api-docs"
+      "url": "http://localhost:3001"
     },
     {
-      "url": "https://example.com/api/v1"
+      "url": "https://nodejs-hw7-1u97.onrender.com"
     }
   ],
   "tags": [
@@ -30,10 +30,12 @@
   "paths": {
     "/contacts": {
       "get": {
-        "tags": ["Contacts"],
-        "summary": "Get list of contacts",
-        "operationId": "getContacts",
-        "description": "Get list of users with this endpoint",
+        "tags": [
+          "Contacts"
+        ],
+        "summary": "Get all contacts",
+        "operationId": "getAllContacts",
+        "description": "Get list of contacts with this endpoint",
         "security": [
           {
             "bearerAuth": []
@@ -44,9 +46,9 @@
             "in": "query",
             "name": "page",
             "schema": {
-              "type": "integer"
-            },
-            "example": 1
+              "type": "integer",
+              "example": 1
+            }
           },
           {
             "in": "query",
@@ -61,69 +63,56 @@
             "name": "sortBy",
             "schema": {
               "type": "string",
-              "example": "age"
+              "example": "name"
             },
-            "description": "All contacts's fields can be mentioned. Default value - _id"
+            "description": "All contact's fields can be mentioned. Default value - _id"
           },
           {
             "in": "query",
             "name": "sortOrder",
             "schema": {
               "type": "string",
-              "enum": ["asc", "desc"],
+              "enum": [
+                "asc",
+                "desc"
+              ],
               "example": "asc"
             }
           },
           {
             "in": "query",
-            "name": "minAvgMark",
-            "schema": {
-              "type": "number",
-              "example": 4
-            }
-          },
-          {
-            "in": "query",
-            "name": "maxAvgMark",
-            "schema": {
-              "type": "number",
-              "example": 10
-            }
-          },
-          {
-            "in": "query",
-            "name": "minAge",
-            "schema": {
-              "type": "number",
-              "example": 10
-            }
-          },
-          {
-            "in": "query",
-            "name": "maxAge",
-            "schema": {
-              "type": "number",
-              "example": 16
-            }
-          },
-          {
-            "in": "query",
-            "name": "gender",
+            "name": "type",
             "schema": {
               "type": "string",
-              "enum": ["male", "female", "other"],
-              "example": "male"
+              "enum": [
+                "work",
+                "home",
+                "personal"
+              ],
+              "example": "personal"
+            }
+          },
+          {
+            "in": "query",
+            "name": "isFavourite",
+            "schema": {
+              "type": "boolean",
+              "example": true
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "Successfully found students!",
+            "description": "Get all contacts",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["status", "message", "data"],
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -131,7 +120,7 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "Successfully found students!"
+                      "example": "Successfully found contacts!"
                     },
                     "data": {
                       "type": "object",
@@ -153,27 +142,27 @@
                         },
                         "page": {
                           "type": "number",
-                          "example": 2
+                          "example": 1
                         },
                         "perPage": {
                           "type": "number",
-                          "example": 4
+                          "example": 2
                         },
                         "totalItems": {
                           "type": "number",
-                          "example": 4
+                          "example": 12
                         },
                         "totalPages": {
                           "type": "number",
-                          "example": 4
+                          "example": 6
                         },
                         "hasNextPage": {
                           "type": "boolean",
-                          "example": false
+                          "example": true
                         },
                         "hasPreviousPage": {
                           "type": "boolean",
-                          "example": true
+                          "example": false
                         }
                       }
                     }
@@ -188,7 +177,9 @@
         }
       },
       "post": {
-        "tags": ["Contacts"],
+        "tags": [
+          "Contacts"
+        ],
         "summary": "Create contact",
         "operationId": "createContact",
         "description": "Create a contact with payload",
@@ -202,37 +193,37 @@
             "multipart/form-data": {
               "schema": {
                 "type": "object",
-                "required": ["name", "age", "gender", "avgMark", "parentId"],
+                "required": [
+                  "name",
+                  "phoneNumber",
+                  "contactType"
+                ],
                 "properties": {
                   "name": {
                     "description": "Contact's name",
                     "type": "string",
                     "example": "John Doe"
                   },
-                  "age": {
-                    "description": "Contact's age",
-                    "type": "number",
-                    "example": 12
+                  "phoneNumber": {
+                    "description": "Contact's phone number",
+                    "type": "string"
                   },
-                  "gender": {
-                    "description": "Contact's age",
+                  "email": {
+                    "description": "Contact's email",
+                    "type": "string"
+                  },
+                  "isFavourite": {
+                    "description": "Contact's of the favourite list.",
+                    "type": "boolean"
+                  },
+                  "contactType": {
+                    "description": "Contact's type of number",
                     "type": "string",
-                    "enum": ["male", "female", "other"]
-                  },
-                  "avgMark": {
-                    "description": "Contact's average mark. Should be between 1 and 12",
-                    "type": "number",
-                    "example": 9.7
-                  },
-                  "onDuty": {
-                    "description": "Whether is contact on duty",
-                    "type": "boolean",
-                    "example": false
-                  },
-                  "parentId": {
-                    "description": "Contact's parent id",
-                    "type": "string",
-                    "example": "65e4decdd286b30065d54af9"
+                    "enum": [
+                      "work",
+                      "home",
+                      "personal"
+                    ]
                   },
                   "photo": {
                     "description": "Contact's photo",
@@ -251,7 +242,11 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["status", "message", "data"],
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -276,9 +271,11 @@
         }
       }
     },
-    "/scontacts/{id}": {
+    "/contacts/{id}": {
       "get": {
-        "tags": ["Contacts"],
+        "tags": [
+          "Contacts"
+        ],
         "summary": "Get contact by id",
         "operationId": "getContact",
         "description": "Get contact by id",
@@ -305,7 +302,11 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["status", "message", "data"],
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -341,7 +342,13 @@
     "schemas": {
       "contact": {
         "type": "object",
-        "required": ["_id", "name", "age", "gender", "avgMark", "onDuty"],
+        "required": [
+          "_id",
+          "name",
+          "phoneNumber",
+          "contactType",
+          "userId"
+        ],
         "properties": {
           "_id": {
             "description": "Contact's id",
@@ -353,28 +360,33 @@
             "type": "string",
             "example": "John Doe"
           },
-          "age": {
-            "description": "Contact's age",
-            "type": "number",
-            "example": 12
-          },
-          "gender": {
-            "description": "Contact's age",
+          "phoneNumber": {
+            "description": "Contact's phone number",
             "type": "string",
-            "enum": ["male", "female", "other"]
+            "example": "+38(095)000-00-00"
           },
-          "avgMark": {
-            "description": "Contact's average mark. Should be between 1 and 12",
-            "type": "number",
-            "example": 9.7
+          "email": {
+            "description": "Contact's email",
+            "type": "string",
+            "example": "hello@mail.com"
           },
-          "onDuty": {
-            "description": "Whether is contact on duty",
+          "isFavourite": {
+            "description": "Contact's of the favourite list.",
             "type": "boolean",
-            "example": false
+            "example": true
           },
-          "parentId": {
-            "description": "Contact's parent id",
+          "contactType": {
+            "description": "Contact's types of number",
+            "type": "string",
+            "enum": [
+              "work",
+              "home",
+              "personal"
+            ],
+            "example": "personal"
+          },
+          "userId": {
+            "description": "Contact's user id",
             "type": "string",
             "example": "65e4decdd286b30065d54af9"
           },
@@ -393,7 +405,11 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "required": ["status", "message", "data"],
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
               "properties": {
                 "status": {
                   "type": "integer",
@@ -405,7 +421,9 @@
                 },
                 "data": {
                   "type": "object",
-                  "required": ["message"],
+                  "required": [
+                    "message"
+                  ],
                   "properties": {
                     "message": {
                       "type": "string",
