@@ -41,7 +41,7 @@ parameters:
       example: true
 responses:
   '200':
-    description: 'Get all students'
+    description: 'Get all contacts'
     content:
       application/json:
         schema:

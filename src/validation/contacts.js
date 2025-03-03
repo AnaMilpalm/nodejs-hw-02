@@ -17,7 +17,7 @@ export const createContactSchema = Joi.object({
       'string.empty': 'Phone number cannot be empty',
       'string.pattern.base': 'Phone number must be in the format +380000000000',
     }),
-  email: Joi.string().min(3).max(20).required().messages({
+  email: Joi.string().min(3).max(24).required().messages({
     'string.base': 'Email should be a string',
     'string.min': 'Email should have at least {#limit} characters',
     'string.max': 'Email should have at most {#limit} characters',
@@ -58,7 +58,7 @@ export const updateContactShema = Joi.object({
       'string.empty': 'Phone number cannot be empty',
       'string.pattern.base': 'Phone number must be in the format +380000000000',
     }),
-  email: Joi.string().min(3).max(20),
+  email: Joi.string().min(3).max(24),
   isFavourite: Joi.boolean(),
   contactType: Joi.string().valid('work', 'home', 'personal'),
 });
